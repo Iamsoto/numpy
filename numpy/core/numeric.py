@@ -310,8 +310,7 @@ def full(shape, fill_value, dtype=None, order='C'):
 
     """
     if dtype is None:
-        fill_value = asarray(fill_value)
-        dtype = fill_value.dtype
+        dtype = array(fill_value).dtype
     a = empty(shape, dtype, order)
     multiarray.copyto(a, fill_value, casting='unsafe')
     return a
@@ -2133,10 +2132,15 @@ def allclose(a, b, rtol=1.e-5, atol=1.e-8, equal_nan=False):
     ``equal_nan=True``.  Infs are treated as equal if they are in the same
     place and of the same sign in both arrays.
 
+    .. note:: `a` and `b` should be composed of elements that support basic
+              arithmetic operations with scalars. So arrays of i.e. dtype
+              datetime64 may raise a TypeError.
+
     Parameters
     ----------
     a, b : array_like
-        Input arrays to compare.
+        Input arrays to compare. Elements of these arrays must support
+        basic arithmetic operations with scalar values.
     rtol : float
         The relative tolerance parameter (see Notes).
     atol : float
@@ -2209,10 +2213,15 @@ def isclose(a, b, rtol=1.e-5, atol=1.e-8, equal_nan=False):
     .. warning:: The default `atol` is not appropriate for comparing numbers
                  that are much smaller than one (see Notes).
 
+    .. note:: `a` and `b` should be composed of elements that support basic
+              arithmetic operations with scalars. So arrays of i.e. dtype
+              datetime64 may raise a TypeError.
+
     Parameters
     ----------
     a, b : array_like
-        Input arrays to compare.
+        Input arrays to compare. Elements of these arrays must support
+        basic arithmetic operations with scalar values.
     rtol : float
         The relative tolerance parameter (see Notes).
     atol : float
